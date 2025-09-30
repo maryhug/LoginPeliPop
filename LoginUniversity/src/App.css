@@ -5,7 +5,41 @@
     box-sizing: border-box;
 }
 
-/* Body con background */
+.logo:hover {
+  filter: drop-shadow(0 0 2em #572364);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #572364);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid #333333;
+}
+
+.read-the-docs {
+  color: #b3b3b3;
+}
+
+/* ===== Tipografías ===== */
 body {
     margin: 0;
     padding: 0;
@@ -58,29 +92,29 @@ h1, h2, h3, h4, h5, h6 {
 /* Botones */
 button,
 .btn {
-    background-color: #e50914;
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
 }
 
 button:hover,
 .btn:hover {
-    background-color: #f40612;
-    box-shadow: 0 4px 12px rgba(244, 6, 18, 0.4);
-    transform: translateY(-1px);
+  background-color: #6d2d7a;
+  box-shadow: 0 4px 12px rgba(87, 35, 100, 0.5);
+  transform: translateY(-1px);
 }
 
 button:active,
 .btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(229, 9, 20, 0.3);
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(87, 35, 100, 0.3);
 }
 
 /* Cards */
