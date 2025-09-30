@@ -13,11 +13,11 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #e50914aa);
+  filter: drop-shadow(0 0 2em #572364);
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #e50914aa);
+  filter: drop-shadow(0 0 2em #572364);
 }
 
 @keyframes logo-spin {
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Botones */
 button,
 .btn {
-  background-color: var(--primary);
+  background-color: #572364;
   color: var(--primary-foreground);
   border: none;
   padding: 12px 24px;
@@ -75,18 +75,18 @@ button,
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);
+  box-shadow: 0 2px 8px rgba(87, 35, 100, 0.3);
 }
 
 button:hover,
 .btn:hover {
-  background-color: #f40612;
-  box-shadow: 0 4px 12px rgba(244, 6, 18, 0.4);
+  background-color: #6d2d7a;
+  box-shadow: 0 4px 12px rgba(87, 35, 100, 0.5);
   transform: translateY(-1px);
 }
 
 button:active,
 .btn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(229, 9, 20, 0.3);
+  box-shadow: 0 2px 6px rgba(87, 35, 100, 0.3);
 }

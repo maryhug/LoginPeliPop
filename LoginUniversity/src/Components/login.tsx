@@ -46,9 +46,9 @@ const LoginInicial: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-black via-neutral-950 to-black flex items-center justify-center p-4 relative overflow-hidden">
       {/* Efectos de fondo sutiles */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-950/10 via-transparent to-red-900/10"></div>
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-red-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-red-700/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-950/10 via-transparent to-purple-900/10"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-purple-700/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="w-full max-w-sm relative z-10">
@@ -58,7 +58,7 @@ const LoginInicial: React.FC = () => {
             <img 
               src={logo} 
               alt="PeliPop Logo" 
-              className="h-24 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </div>
           <p className="text-neutral-400 text-sm">
@@ -84,7 +84,7 @@ const LoginInicial: React.FC = () => {
 
             {/* Mensaje de error */}
             {error && (
-              <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-3 text-red-400 text-sm text-center">
+              <div className="bg-purple-500/10 border border-purple-500/50 rounded-xl p-3 text-purple-400 text-sm text-center">
                 {error}
               </div>
             )}
@@ -92,7 +92,7 @@ const LoginInicial: React.FC = () => {
             {/* Campo de email */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-4 w-4 text-neutral-500 group-focus-within:text-red-500 transition-colors duration-200" />
+                <Mail className="h-4 w-4 text-neutral-500 group-focus-within:text-purple-500 transition-colors duration-200" />
               </div>
               <input
                 type="email"
@@ -101,7 +101,7 @@ const LoginInicial: React.FC = () => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-red-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(229,9,20,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-purple-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(87,35,100,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Correo electrónico"
               />
             </div>
@@ -109,7 +109,7 @@ const LoginInicial: React.FC = () => {
             {/* Campo de contraseña */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-4 w-4 text-neutral-500 group-focus-within:text-red-500 transition-colors duration-200" />
+                <Lock className="h-4 w-4 text-neutral-500 group-focus-within:text-purple-500 transition-colors duration-200" />
               </div>
               <input
                 type="password"
@@ -118,7 +118,7 @@ const LoginInicial: React.FC = () => {
                 onChange={handleChange}
                 required
                 disabled={loading}
-                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-red-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(229,9,20,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-purple-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(87,35,100,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Contraseña"
               />
             </div>
@@ -128,7 +128,7 @@ const LoginInicial: React.FC = () => {
               <label className="flex items-center space-x-2 cursor-pointer group">
                 <div className="relative">
                   <input type="checkbox" className="sr-only peer" />
-                  <div className="w-4 h-4 border border-neutral-600 rounded bg-neutral-900/50 peer-checked:bg-gradient-to-r peer-checked:from-red-600 peer-checked:to-red-700 peer-checked:border-red-500 transition-all duration-200"></div>
+                  <div className="w-4 h-4 border border-neutral-600 rounded bg-neutral-900/50 peer-checked:bg-gradient-to-r peer-checked:from-purple-600 peer-checked:to-purple-700 peer-checked:border-purple-500 transition-all duration-200"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-white rounded-sm opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></div>
                   </div>
@@ -139,7 +139,7 @@ const LoginInicial: React.FC = () => {
               </label>
               <a
                 href="#"
-                className="text-neutral-400 hover:text-red-500 transition-colors"
+                className="text-neutral-400 hover:text-purple-500 transition-colors"
               >
                 ¿Olvidaste tu contraseña?
               </a>
@@ -149,7 +149,7 @@ const LoginInicial: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-xl hover:from-red-700 hover:to-red-800 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 shadow-[0_4px_20px_rgba(229,9,20,0.4)] hover:shadow-[0_6px_25px_rgba(229,9,20,0.5)] relative overflow-hidden group text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-6 rounded-xl hover:from-purple-700 hover:to-purple-800 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 shadow-[0_4px_20px_rgba(87,35,100,0.4)] hover:shadow-[0_6px_25px_rgba(87,35,100,0.5)] relative overflow-hidden group text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 ease-out"></div>
               <span className="relative">
@@ -220,7 +220,7 @@ const LoginInicial: React.FC = () => {
                 ¿No tienes una cuenta?{" "}
                 <a
                   href="#"
-                  className="text-white hover:text-red-500 transition-colors font-semibold"
+                  className="text-white hover:text-purple-500 transition-colors font-semibold"
                 >
                   Regístrate
                 </a>
