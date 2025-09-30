@@ -1,91 +1,179 @@
-import React from "react";
-import { Play, Mail, Lock } from "lucide-react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { Mail, Lock } from "lucide-react";
+import { apiService } from "../services/api";
 import "../Styles/login.css";
+import logo from "../assets/logo.png"; // Ajusta según tu imagen
 
 const LoginInicial: React.FC = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    // Limpiar error al escribir
+    if (error) setError("");
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await apiService.login(formData);
+      
+      console.log("✅ Login correcto:", data);
+
+      // Guardar token y datos del usuario
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data));
+
+      // Redirigir al home (ajusta la ruta según tu aplicación)
+      window.location.href = "/home";
+    } catch (error) {
+      console.error("Error al hacer login:", error);
+      setError("Credenciales incorrectas. Por favor, intenta de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-black via-neutral-950 to-black flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Efectos de fondo sutiles */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10"></div>
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-purple-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-red-950/10 via-transparent to-red-900/10"></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-red-600/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-red-700/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="w-full max-w-sm relative z-10">
+        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 mb-4 shadow-[0_0_30px_rgba(59,130,246,0.3)]">
-            <Play className="w-8 h-8 text-white fill-white" />
+          <div className="flex justify-center mb-4">
+            <img 
+              src={logo} 
+              alt="PeliPop Logo" 
+              className="h-24 w-auto object-contain"
+            />
           </div>
-          <h1 className="text-2xl text-white mb-1">NI IDEA DEL NOMBRE DE ESTA VUELTA - TE AMO</h1>
-          <p className="text-gray-400 text-sm">Disfruta películas sin límites</p>
+          <p className="text-neutral-400 text-sm">
+            Disfruta películas sin límites
+          </p>
         </div>
 
-        <div className="bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-gray-800/50 p-6 shadow-[0_8px_40px_rgba(0,0,0,0.5)]">
+        {/* Formulario de login */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-black/70 backdrop-blur-xl rounded-2xl border border-neutral-800/50 p-6 shadow-[0_8px_40px_rgba(0,0,0,0.8)]"
+        >
           <div className="space-y-4">
+            {/* Encabezado del formulario */}
             <div className="text-center mb-6">
-              <h2 className="text-xl text-white mb-1">Bienvenido de nuevo</h2>
-              <p className="text-gray-400 text-sm">Inicia sesión para continuar viendo</p>
+              <h2 className="text-xl text-white font-semibold mb-1">
+                Bienvenido de nuevo
+              </h2>
+              <p className="text-neutral-400 text-sm">
+                Inicia sesión para continuar viendo
+              </p>
             </div>
 
+            {/* Mensaje de error */}
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-3 text-red-400 text-sm text-center">
+                {error}
+              </div>
+            )}
+
+            {/* Campo de email */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-4 w-4 text-gray-500 group-focus-within:text-blue-400 transition-colors duration-200" />
+                <Mail className="h-4 w-4 text-neutral-500 group-focus-within:text-red-500 transition-colors duration-200" />
               </div>
               <input
                 type="email"
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:border-blue-500/50 focus:bg-gray-800/70 focus:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-200 outline-none text-sm"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-red-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(229,9,20,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Correo electrónico"
               />
             </div>
 
+            {/* Campo de contraseña */}
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-4 w-4 text-gray-500 group-focus-within:text-blue-400 transition-colors duration-200" />
+                <Lock className="h-4 w-4 text-neutral-500 group-focus-within:text-red-500 transition-colors duration-200" />
               </div>
               <input
                 type="password"
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-500 focus:border-blue-500/50 focus:bg-gray-800/70 focus:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all duration-200 outline-none text-sm"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                disabled={loading}
+                className="w-full pl-10 pr-4 py-3 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-white placeholder-neutral-500 focus:border-red-600/50 focus:bg-neutral-900/70 focus:shadow-[0_0_15px_rgba(229,9,20,0.2)] transition-all duration-200 outline-none text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Contraseña"
               />
             </div>
 
+            {/* Recordar y olvidar contraseña */}
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center space-x-2 cursor-pointer group">
                 <div className="relative">
                   <input type="checkbox" className="sr-only peer" />
-                  <div className="w-4 h-4 border border-gray-600 rounded bg-gray-800/50 peer-checked:bg-gradient-to-r peer-checked:from-blue-600 peer-checked:to-purple-600 peer-checked:border-blue-500 transition-all duration-200"></div>
+                  <div className="w-4 h-4 border border-neutral-600 rounded bg-neutral-900/50 peer-checked:bg-gradient-to-r peer-checked:from-red-600 peer-checked:to-red-700 peer-checked:border-red-500 transition-all duration-200"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-white rounded-sm opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></div>
                   </div>
                 </div>
-                <span className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                <span className="text-neutral-400 group-hover:text-neutral-300 transition-colors">
                   Recuérdame
                 </span>
               </label>
               <a
                 href="#"
-                className="text-gray-400 hover:text-blue-400 transition-colors"
+                className="text-neutral-400 hover:text-red-500 transition-colors"
               >
                 ¿Olvidaste tu contraseña?
               </a>
             </div>
 
-            <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-purple-700 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 shadow-[0_4px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_6px_25px_rgba(59,130,246,0.4)] relative overflow-hidden group text-sm">
+            {/* Botón de inicio de sesión */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 px-6 rounded-xl hover:from-red-700 hover:to-red-800 transform hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 shadow-[0_4px_20px_rgba(229,9,20,0.4)] hover:shadow-[0_6px_25px_rgba(229,9,20,0.5)] relative overflow-hidden group text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 ease-out"></div>
-              <span className="relative">Iniciar sesión</span>
+              <span className="relative">
+                {loading ? "Iniciando sesión..." : "Iniciar sesión"}
+              </span>
             </button>
 
+            {/* Divisor */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-700/50"></div>
+                <div className="w-full border-t border-neutral-700/50"></div>
               </div>
               <div className="relative flex justify-center text-xs">
-                <span className="px-3 bg-gray-900/80 text-gray-500">o</span>
+                <span className="px-3 bg-black/70 text-neutral-500">o</span>
               </div>
             </div>
 
+            {/* Botones de redes sociales */}
             <div className="grid grid-cols-2 gap-3">
-              <button className="flex items-center justify-center py-2.5 px-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-gray-300 hover:bg-gray-800/70 hover:border-gray-600/50 transition-all duration-200 text-sm">
+              <button
+                type="button"
+                disabled={loading}
+                className="flex items-center justify-center py-2.5 px-4 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-neutral-300 hover:bg-neutral-900/70 hover:border-neutral-600/50 transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <svg
                   className="w-4 h-4 mr-2"
                   viewBox="0 0 24 24"
@@ -110,7 +198,11 @@ const LoginInicial: React.FC = () => {
                 </svg>
                 Google
               </button>
-              <button className="flex items-center justify-center py-2.5 px-4 bg-gray-800/50 border border-gray-700/50 rounded-xl text-gray-300 hover:bg-gray-800/70 hover:border-gray-600/50 transition-all duration-200 text-sm">
+              <button
+                type="button"
+                disabled={loading}
+                className="flex items-center justify-center py-2.5 px-4 bg-neutral-900/50 border border-neutral-700/50 rounded-xl text-neutral-300 hover:bg-neutral-900/70 hover:border-neutral-600/50 transition-all duration-200 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <svg
                   className="w-4 h-4 mr-2"
                   fill="currentColor"
@@ -122,23 +214,25 @@ const LoginInicial: React.FC = () => {
               </button>
             </div>
 
+            {/* Registro */}
             <div className="text-center pt-4">
-              <p className="text-gray-400 text-sm">
+              <p className="text-neutral-400 text-sm">
                 ¿No tienes una cuenta?{" "}
                 <a
                   href="#"
-                  className="text-white hover:text-blue-400 transition-colors"
+                  className="text-white hover:text-red-500 transition-colors font-semibold"
                 >
                   Regístrate
                 </a>
               </p>
             </div>
           </div>
-        </div>
+        </form>
 
+        {/* Texto inferior */}
         <div className="text-center mt-6">
-          <p className="text-gray-500 text-xs">
-            Mira miles de películas y series
+          <p className="text-neutral-500 text-xs">
+            © 2025 PeliPop. Todos los derechos reservados.
           </p>
         </div>
       </div>
